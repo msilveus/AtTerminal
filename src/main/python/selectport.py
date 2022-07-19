@@ -244,9 +244,9 @@ class Ui_Settings(object):
         self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_5.setObjectName("line_5")
         self.gridLayout.addWidget(self.line_5, 7, 0, 1, 1)
-        self.Exit = QtWidgets.QPushButton(self.centralwidget)
-        self.Exit.setObjectName("Exit")
-        self.gridLayout.addWidget(self.Exit, 17, 0, 1, 1)
+        self.Cancel = QtWidgets.QPushButton(self.centralwidget)
+        self.Cancel.setObjectName("Cancel")
+        self.gridLayout.addWidget(self.Cancel, 17, 0, 1, 1)
         self.line_4 = QtWidgets.QFrame(self.centralwidget)
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
@@ -273,15 +273,15 @@ class Ui_Settings(object):
         self.statusbar = QtWidgets.QStatusBar(Settings)
         self.statusbar.setObjectName("statusbar")
         Settings.setStatusBar(self.statusbar)
-        self.actionExit = QtWidgets.QAction(Settings)
-        self.actionExit.setObjectName("actionExit")
+        self.actionCancel = QtWidgets.QAction(Settings)
+        self.actionCancel.setObjectName("actionCancel")
         self.actionAbout = QtWidgets.QAction(Settings)
         self.actionAbout.setObjectName("actionAbout")
         self.actionSave_Config = QtWidgets.QAction(Settings)
         self.actionSave_Config.setObjectName("actionSave_Config")
         self.menuFile.addAction(self.actionAbout)
         self.menuFile.addSeparator()
-        self.menuFile.addAction(self.actionExit)
+        self.menuFile.addAction(self.actionCancel)
         self.menuFile.addSeparator()
         self.menuOptions.addAction(self.actionSave_Config)
         self.menuOptions.setStyleSheet("selection-background-color: rgb(114, 159, 207);")
@@ -314,17 +314,18 @@ class Ui_Settings(object):
         self.LogRotation.setText(_translate("Settings", "Log Rotation"))
         self.label_4.setText(_translate("Settings", "MB"))
         self.UpdatePortList.setText(_translate("Settings", "Update port list"))
-        self.Exit.setText(_translate("Settings", "Exit"))
+        self.Cancel.setText(_translate("Settings", "Cancel"))
         self.menuFile.setTitle(_translate("Settings", "File"))
         self.menuOptions.setTitle(_translate("Settings", "Options"))
-        self.actionExit.setText(_translate("Settings", "Exit"))
+        self.actionCancel.setText(_translate("Settings", "Cancel"))
         self.actionSave_Config.setText(_translate("Settings", "Save Config"))
         self.actionAbout.setText(_translate("Settings", "About"))
 
 class SelectPort(QMainWindow):
     """docstring for SelectPort"""
-    def __init__(self):
+    def __init__(self, main_window=None):
         super().__init__()
+        self.main_window = main_window
         self.version="0.1"
 
         self.list_of_window = list()
@@ -336,8 +337,8 @@ class SelectPort(QMainWindow):
 
         #Properties
         self.properties = dict()
-        # Exit button
-        self.ui.actionExit.triggered.connect(self.exit_app)
+        # Cancel button
+        self.ui.actionCancel.triggered.connect(self.cancel_app)
         # About button
         self.ui.actionAbout.triggered.connect(self.show_about)
         #Save config:
@@ -348,13 +349,13 @@ class SelectPort(QMainWindow):
         self.ui.ChangeDir.clicked.connect(self.change_log_dir)
         #handle Start
         self.properties = self.ui.Start.clicked.connect(self.start)
-        #handle exit
-        self.ui.Exit.clicked.connect(self.exit_app)
+        #handle Cancel
+        self.ui.Cancel.clicked.connect(self.cancel_app)
 
 
-    def exit_app(self):
+    def cancel_app(self):
         """
-        Exit
+        Cancel
         """
         self.close()
 
@@ -555,15 +556,21 @@ class SelectPort(QMainWindow):
         font_size=self.get_font_size()
         properties_dict.update({"font_size":font_size})
         log_rotaion_enabled=self.get_logrotation()
-        properties_dict.update({"log_roation":log_rotaion_enabled})
+        properties_dict.update({"log_rotation":log_rotaion_enabled})
         log_rotation_size = self.get_logrotationsize()
         properties_dict.update({"log_rotation_size":log_rotation_size})
         
 
         #Next Window
-        serial = SerialWindow(properties_dict)
+        serial = SerialWindow(properties_dict, self.main_window)
         self.list_of_window.append(serial)
-        serial.show()
+        self.main_window.serialClass = serial
+        self.main_window.actionSuspend_Comm_Port.setEnabled(True)
+        self.main_window.actionSuspend_Comm_Port.setText(QtCore.QCoreApplication.translate("MainWindow", comport + " Connected"))
+        self.main_window.actionSuspend_Comm_Port.setToolTip(
+            QtCore.QCoreApplication.translate("MainWindow", "Suspend Comm Port"))
+        self.main_window.properties = self.properties
+        self.main_window.set_night_mode(nightmode)
         self.close()
         
         return properties_dict
@@ -631,7 +638,7 @@ class SelectPort(QMainWindow):
             properties_dict.update({"logenabled":logenabled})
 
             log_rotaion_enabled=self.get_logrotation()
-            properties_dict.update({"log_roation":log_rotaion_enabled})
+            properties_dict.update({"log_rotation":log_rotaion_enabled})
             log_rotation_size = self.get_logrotationsize()
             properties_dict.update({"log_rotation_size":log_rotation_size})
             

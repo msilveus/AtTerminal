@@ -11,7 +11,7 @@ class log_files(object):
 		self.serial_log_file = open(self.path_serial_log, 'w+')
 		self.serial_info_file = open(self.path_info_log, 'w+')
 		#5 mg
-		self.rotation_size = rotation_size
+		self.rotation_size = rotation_size * 1024 * 1024
 	def renew_logs(self):
 		self.log_rev += 1
 		while self.path_serial_log[-1:].isnumeric():

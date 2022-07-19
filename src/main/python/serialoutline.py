@@ -14,7 +14,7 @@ from datetime import datetime
 import sys,os
 
 
-class Ui_MainWindow(object):
+class Ui_OldMainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(931, 904)

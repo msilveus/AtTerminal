@@ -5,7 +5,7 @@ iso8601==0.1.13
 macholib==1.14
 pefile==2019.4.18
 PyInstaller==3.4
-PyQt5==5.15.2
-PyQt5-sip==12.8.1
+PyQt5==5.15.7
+PyQt5-sip==12.11.0
 pyserial==3.5
 PyYAML==5.3.1

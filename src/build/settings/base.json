@@ -1,6 +1,6 @@
 {
     "app_name": "AtTerminal",
-    "author": "Sam.Ahrar",
+    "author": "Sam.Ahrar & Michael.Silveus",
     "main_module": "src/main/python/main.py",
-    "version": "0.0.0"
+    "version": "1.0.0"
 }

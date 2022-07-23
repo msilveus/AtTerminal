@@ -40,6 +40,9 @@ class Ui_EditHistory(object):
         self.btnSave = QtWidgets.QPushButton(EditHistory)
         self.btnSave.setObjectName("btnSave")
         self.verticalLayout.addWidget(self.btnSave)
+        self.btnExit = QtWidgets.QPushButton(EditHistory)
+        self.btnExit.setObjectName("btnExit")
+        self.verticalLayout.addWidget(self.btnExit)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.gridLayout.addLayout(self.verticalLayout, 0, 1, 1, 1)
@@ -53,5 +56,5 @@ class Ui_EditHistory(object):
         self.btnAdd.setText(_translate("EditHistory", "Add"))
         self.bntUpdate.setText(_translate("EditHistory", "Update"))
         self.btnDelete.setText(_translate("EditHistory", "Delete"))
-        self.btnSave.setText(_translate("EditHistory", "Save"))
-
+        self.btnSave.setText(_translate("EditHistory", "Save and Exit"))
+        self.btnExit.setText(_translate("EditHistory", "Exit"))

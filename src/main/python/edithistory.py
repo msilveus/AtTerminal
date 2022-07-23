@@ -16,6 +16,7 @@ class EditHistory(QWidget, Ui_EditHistory):
         self.bntUpdate.clicked.connect(self.onUpdateHistory)
         self.btnDelete.clicked.connect(self.onDeleteHistory)
         self.btnSave.clicked.connect(self.onSaveHistory)
+        self.btnExit.clicked.connect(self.onExit)
         self.listView.clicked.connect(self.onItemSelected)
         self.lineEdit.returnPressed.connect(self.onAddHistory)
 
@@ -61,18 +62,11 @@ class EditHistory(QWidget, Ui_EditHistory):
             model.removeRow(index.row())
             
     def onSaveHistory(self):
-        cmdlist = dict()
-        numOfItems = self.mainwindow.historyBox.count()
-        for index in range(numOfItems):
-            self.mainwindow.historyBox.removeItem(0)
-        model = self.listView.model()
-        for row in range(model.rowCount()):
-            index = model.index(row, 0)
-            cmd = model.itemData(index)
-            self.mainwindow.historyBox.addItem(cmd[0])
-            cmdlist.update({str(row):cmd[0]})
-            
-        config_utils.save_history(cmdlist)
+        self.doUpdate(True)
+        self.close()
+
+    def onExit(self):
+        self.doUpdate(False)
         self.close()
 
     def onItemSelected(self):
@@ -101,4 +95,21 @@ class EditHistory(QWidget, Ui_EditHistory):
             self.setStyleSheet(
                 "background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size,
                                                                                                            font))
+
+    def doUpdate(self, save=False):
+        if save:
+            cmdlist = dict()
+        numOfItems = self.mainwindow.historyBox.count()
+        for index in range(numOfItems):
+            self.mainwindow.historyBox.removeItem(0)
+        model = self.listView.model()
+        for row in range(model.rowCount()):
+            index = model.index(row, 0)
+            cmd = model.itemData(index)
+            self.mainwindow.historyBox.addItem(cmd[0])
+            if save:
+                cmdlist.update({str(row): cmd[0]})
+    
+        if save:
+            config_utils.save_history(cmdlist)
 

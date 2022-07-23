@@ -39,11 +39,14 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.serialClass = None
         self.port_settings = None
         self.nightmode = False
-        
-        if self.cmdhistory:
-            for row, cmd in self.cmdhistory.items():
-                self.historyBox.addItem(cmd)
-        
+
+        try:
+            if self.cmdhistory:
+                for key, value in self.cmdhistory.items():
+                    self.historyBox.addItem(value)
+        except Exception as e:
+            pass
+            
     def onShowSetup(self):
         if (self.serialClass != None):
             self.serialClass.shutdown_serial()

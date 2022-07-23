@@ -40,8 +40,9 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.port_settings = None
         self.nightmode = False
         
-        for row, cmd in self.cmdhistory.items():
-            self.historyBox.addItem(cmd)
+        if self.cmdhistory:
+            for row, cmd in self.cmdhistory.items():
+                self.historyBox.addItem(cmd)
         
     def onShowSetup(self):
         if (self.serialClass != None):

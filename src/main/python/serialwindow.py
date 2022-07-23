@@ -4,7 +4,10 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QTimer
 import serial
 import sys, os
-from log_utils import log_files, log_line
+
+from atelfrpparser import frp
+
+from log_utils import log_files, log_line, formatFRPreport
 from commandhistory import CommandHistory
 
 
@@ -13,9 +16,8 @@ class SerialWindow(object):
     
     def __init__(self, comport_dic, mainwindow=None):
         super(SerialWindow, self).__init__()
+        self.serialHandle = None
         self.list_of_window = list()
-#        self.ui = Ui_MainWindow()
-#        self.ui.setupUi(self)
         
         self.mainwindow = mainwindow
         
@@ -76,12 +78,11 @@ class SerialWindow(object):
             baudrate = int(baudrate)
         try:
             self.serial = serial.Serial(port=comport, baudrate=baudrate, timeout=0.4)
-            serialHandle = self.serial
             self.print_banner()
         except Exception as e:
             print("start_serial")
             print(e)
-            self.bot_print_error("FAILED OPENNING COMPORT")
+            self.bot_print_error("FAILED OPENNING {}".format(comport))
             self.set_serial_stopped()
             return
         
@@ -140,6 +141,8 @@ class SerialWindow(object):
         if line:
             self.print_to_box(line, None, None)
             self.line_handler(line)
+
+            return line
         else:
             pass
     
@@ -198,6 +201,15 @@ class SerialWindow(object):
             self.ui.SuspendSerial.setText(QtCore.QCoreApplication.translate("MainWindow", "Suspend ComPort"))
             self.ui.SerialStatus.setText(QtCore.QCoreApplication.translate("MainWindow", self.comport))
             self.ui.SerialStatus.setStyleSheet("color : green;")
+
+    def isReady(self):
+        return self.serial_running and self.serial.is_open
+    
+    def setUploadMode(self, mode=False):
+        if mode:
+            self.uart_timer.stop()
+        else:
+            self.uart_timer.start()
     
     def handle_send(self):
         """
@@ -208,7 +220,7 @@ class SerialWindow(object):
         if result:
             self.ui.AtCommandLine.clear()
             self.add_command_to_drop_down(command)
-    
+
     def send_to_uart(self, command):
         """
         Send directly to serial
@@ -278,3 +290,11 @@ class SerialWindow(object):
         command = self.read_prev_command()
         if command:
             self.send_to_uart(command)
+
+    def getc(self, size, timeout=1):
+        if self.serial != None:
+            return self.serial.read(size)
+
+    def putc(self, data, timeout=1):
+        if self.serial != None:
+            self.serial.write(data)

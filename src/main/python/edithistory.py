@@ -61,6 +61,7 @@ class EditHistory(QWidget, Ui_EditHistory):
             model.removeRow(index.row())
             
     def onSaveHistory(self):
+        cmdlist = dict()
         numOfItems = self.mainwindow.historyBox.count()
         for index in range(numOfItems):
             self.mainwindow.historyBox.removeItem(0)
@@ -69,6 +70,9 @@ class EditHistory(QWidget, Ui_EditHistory):
             index = model.index(row, 0)
             cmd = model.itemData(index)
             self.mainwindow.historyBox.addItem(cmd[0])
+            cmdlist.update({str(row):cmd[0]})
+            
+        config_utils.save_history(cmdlist)
         self.close()
 
     def onItemSelected(self):
@@ -77,6 +81,8 @@ class EditHistory(QWidget, Ui_EditHistory):
         self.lineEdit.setText(cmd)
 
     def set_night_mode(self, nightmode=False):
+        self.properties = config_utils.read_config()
+        print(self.properties)
         try:
             if 'font' in self.properties and self.properties['font']:
                 font = self.properties['font']

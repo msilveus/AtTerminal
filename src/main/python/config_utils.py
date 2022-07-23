@@ -19,6 +19,18 @@ def read_config():
 	else:
 		return False
 
+def read_history():
+	config_file = get_path_history_file()
+	if os.path.exists(config_file):
+		return read_json_history()
+	else:
+		return False
+
+def get_path_history_file():
+	config_dir = make_config_dir()
+	config_file = os.path.join(config_dir,"cmd_history.json")
+	return config_file
+
 def get_baudrate_index(baudrate):
 		av_baudrate = ["115200","57600","19200","9600","4800"]
 		return av_baudrate.index(baudrate)
@@ -30,8 +42,20 @@ def save_confg(properties_dict):
 	with open(config_file, "w") as file:  
 		json.dump(properties_dict, file) 
 
+def save_history(properties_dict):
+	properties_dict = properties_dict
+	config_file= get_path_history_file()
+	with open(config_file, "w") as file:
+		json.dump(properties_dict, file)
+
 def read_json_config():
 	config_file= get_path_config_file()
+	with open(config_file) as file:
+		config_dict = json.load(file)
+	return config_dict
+
+def read_json_history():
+	config_file= get_path_history_file()
 	with open(config_file) as file:
 		config_dict = json.load(file)
 	return config_dict

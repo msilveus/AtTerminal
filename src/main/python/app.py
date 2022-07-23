@@ -1,21 +1,26 @@
 from PyQt5 import QtGui, QtCore
 
 import selectport
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from edithistory import EditHistory
 from main_window import Ui_MainWindow
 import config_utils
+from about import AboutBox
+from uploadform import UploadForm
+
 
 class MainForm(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.properties = config_utils.read_config()
+        self.cmdhistory = config_utils.read_history()
 
         self.actionConfiguration.triggered.connect(self.onShowSetup)
         self.actionHistory.triggered.connect(self.onEditHistory)
         self.actionExit.triggered.connect(self.onActionExit)
+        self.actionUpload.triggered.connect(self.onUpload)
         self.sendEdit.returnPressed.connect(self.onSendData)
         self.btnSend.clicked.connect(self.onSendData)
         self.btnSendHistory.clicked.connect(self.onSendHistory)
@@ -24,6 +29,7 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.viewPort.verticalScrollBar().setVisible(True)
         self.viewPort.verticalScrollBar().valueChanged.connect(self.onScrollEvent)
         self.actionSuspend_Comm_Port.triggered.connect(self.handle_disconnect_resume)
+        self.actionAbout.triggered.connect(self.onShowAbout)
         
         self.stopsign = QtGui.QIcon()
         self.stopsign.addPixmap(QtGui.QPixmap("images/stop-sign.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -33,6 +39,9 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.serialClass = None
         self.port_settings = None
         self.nightmode = False
+        
+        for row, cmd in self.cmdhistory.items():
+            self.historyBox.addItem(cmd)
         
     def onShowSetup(self):
         if (self.serialClass != None):
@@ -83,6 +92,7 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.actionAutoScroll.setChecked(self.autoscroll)
     
     def set_night_mode(self, nightmode=False):
+        self.properties = config_utils.read_config()
         self.nightmode = nightmode
         try:
             if 'font' in self.properties and self.properties['font']:
@@ -94,14 +104,17 @@ class MainForm(QMainWindow, Ui_MainWindow):
                 font_size = self.properties['font_size']
         except Exception as e:
             font_size = 12
-        if nightmode:
-            self.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
-            self.menubar.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
-            self.toolBar.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
-        else:
-            self.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
-            self.menubar.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
-            self.toolBar.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
+        try:
+            if nightmode:
+                self.viewPort.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
+                self.menubar.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
+                self.toolBar.setStyleSheet("background-color: rgb(162, 0, 0); color: rgb(200, 200, 200);" + "font: {}pt \"{}\";".format(font_size, font))
+            else:
+                self.viewPort.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
+                self.menubar.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
+                self.toolBar.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" + "font: {}pt \"{}\";".format(font_size, font))
+        except Exception as e:
+            print(e)
     
     def handle_disconnect_resume(self):
         """
@@ -130,6 +143,17 @@ class MainForm(QMainWindow, Ui_MainWindow):
         editHistory = EditHistory(self)
         self.list_of_window.append(editHistory)
         editHistory.show()
+
+    def onUpload(self):
+        if self.serialClass != None:
+            self.uploadform = UploadForm(self.serialClass, self)
+            self.uploadform.show()
+
+    def onShowAbout(self):
+        self.list_of_window = list()
+        about = AboutBox()
+        self.list_of_window.append(about)
+        about.show()
 
 
 class App(object):

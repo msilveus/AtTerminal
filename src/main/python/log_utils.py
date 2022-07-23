@@ -1,4 +1,7 @@
+import ast
 from datetime import datetime
+from atelfrpparser import frp
+from tabulate import tabulate
 
 class log_files(object):
 	"""docstring for log_files"""
@@ -30,6 +33,63 @@ class log_files(object):
 		self.serial_log_file = open(self.path_serial_log, 'w+')
 		self.renew_logs_flag = False
 
+def recursive_dict_eval(myDict, itemlist):
+	for key,value in myDict.items():
+		try:
+			if(isinstance(value, dict)):
+				itemlist = itemlist + key + "\n"
+				itemlist = recursive_dict_eval(dict(value), itemlist)
+			else:
+				itemlist = itemlist + key + ' : ' + str(value) + '\n'
+
+		except (SyntaxError, ValueError, AssertionError):
+			#SyntaxError, ValueError are for the literal_eval exceptions
+			pass
+	return itemlist
+
+
+def decodeTLV(dictionary, tagname=None):
+	table = list()
+	header = list()
+	tower_data = list()
+	if tagname == None:
+		header.append("Name")
+		header.append("Value")
+	else:
+		header.append(tagname)
+		header.append("Value")
+	table.append(header)
+	tags = ""
+	for key, value in dictionary.items():
+		tag = ""
+		try:
+			if(isinstance(value, dict)):
+				tag = decodeTLV(value, key)
+				tags += tag + "\r\n"
+#			elif key == "tower_header":
+#				for x in range(len(value)):
+#					tower_data.append(value[x])
+#			elif key == "tower_list":
+#				tower_data.append(value)
+#				tags += tabulate(tower_data)
+			else:
+				keyvalue = list()
+				keyvalue.append(key)
+				keyvalue.append(value)
+				table.append(keyvalue)
+
+		except (SyntaxError, ValueError, AssertionError):
+			#SyntaxError, ValueError are for the literal_eval exceptions
+			pass
+	return tabulate(table,headers='firstrow') + "\r\n\r\n" + tags
+
+
+def formatFRPreport(param):
+	dictionary = dict(param)
+	itemlist = decodeTLV(dictionary)
+	
+	return itemlist
+
 def log_line(line, serial_log_file, serial_info_file):
 	"""Log one line"""
 	serial_log_file.write(line+"\r\n")
@@ -37,5 +97,9 @@ def log_line(line, serial_log_file, serial_info_file):
 
 	info_line ="[" + str(datetime.now().strftime('%Y-%m-%d %H:%M:%S:%f')) +"]" +" - " + line
 	serial_info_file.write(info_line+"\r\n")
+	if line.startswith("7D"):
+		frpreport = frp.frpreport(line)
+		report = formatFRPreport(frpreport.get_decoded_dictonary())
+		serial_info_file.write(report)
 	serial_info_file.flush()
 	return True

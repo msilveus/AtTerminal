@@ -275,12 +275,8 @@ class Ui_Settings(object):
         Settings.setStatusBar(self.statusbar)
         self.actionCancel = QtWidgets.QAction(Settings)
         self.actionCancel.setObjectName("actionCancel")
-        self.actionAbout = QtWidgets.QAction(Settings)
-        self.actionAbout.setObjectName("actionAbout")
         self.actionSave_Config = QtWidgets.QAction(Settings)
         self.actionSave_Config.setObjectName("actionSave_Config")
-        self.menuFile.addAction(self.actionAbout)
-        self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionCancel)
         self.menuFile.addSeparator()
         self.menuOptions.addAction(self.actionSave_Config)
@@ -319,7 +315,6 @@ class Ui_Settings(object):
         self.menuOptions.setTitle(_translate("Settings", "Options"))
         self.actionCancel.setText(_translate("Settings", "Cancel"))
         self.actionSave_Config.setText(_translate("Settings", "Save Config"))
-        self.actionAbout.setText(_translate("Settings", "About"))
 
 class SelectPort(QMainWindow):
     """docstring for SelectPort"""
@@ -339,8 +334,6 @@ class SelectPort(QMainWindow):
         self.properties = dict()
         # Cancel button
         self.ui.actionCancel.triggered.connect(self.cancel_app)
-        # About button
-        self.ui.actionAbout.triggered.connect(self.show_about)
         #Save config:
         self.ui.actionSave_Config.triggered.connect(self.show_config)
         #handle Update port list
@@ -574,12 +567,6 @@ class SelectPort(QMainWindow):
         self.close()
         
         return properties_dict
-
-    def show_about(self):
-        msg = QMessageBox()
-        msg.setWindowTitle("About AT Terminal")
-        msg.setText("AT Terminal Created by Sam Ahrar\nVersion{0}".format(self.version))
-        x = msg.exec_()
 
     def show_config(self):
         msg = QMessageBox()

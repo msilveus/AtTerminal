@@ -1,0 +1,115 @@
+Serial port => COM7  | Log Name => C:\work\pythonProjects\AtTerminal\log\20220724_191948
+
+0 KA1:E65 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R65 UM0 ME0 KO0:R0)
+02:19:51 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:51 ars_accGps: Samples 128
+02:19:51 ars_accGps: Precal -160,-48,-996,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-48,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -156,-48,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-52,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-48,-996,1,0.20,162.33
+02:19:51 ars_accGps: Precal -152,-52,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -136,-52,-972,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-52,-996,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-48,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -156,-48,-992,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-48,-996,1,0.20,162.33
+02:19:51 ars_accGps: Precal -156,-52,-996,1,0.20,162.33
+02:19:51 ars_accGps: Precal -160,-48,-992,1,0.20,162.33
+02:19:51 mnt_atcmdrspSendCommandData: Adding '+QCSQ'
+02:19:51 mnt_atcmdrspSendNextRecordFromQueue: Sending 'AT+QCSQ'
+AT+QCSQ
+02:19:51 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E64 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT1 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R64 UM0 ME0 KO0:R0)
+02:19:51 mph_readAdc: 0
++QCSQ: "eMTC",-76,-102,126,-12
+02:19:51 mnt_atcmdrspParseResponseLine(34): '<CR><LF>+QCSQ: "eMTC",-76,-102,126,-12<CR><LF>'
+02:19:51 mnt_atcmdrspParseResponseLine: Response '+QCSQ'
+02:19:51 mnt_atcmdrspParseResponseLine: Handler '+QCSQ', 5 params
+02:19:51 atRspQcsqHandler: rssi: 19, lte_rssi: -76, lte_rsrq -12, lte_rsrp -102
+OK
+02:19:51 mnt_atcmdrspHandleResponseChar: Final response 'OK'
+02:19:51 mph_HandleCommand:  WD Left 896
+02:19:51 mph_HandleAdc(03): MAIN: 12067 12.067
+02:19:51 mph_HandleAdc(03): BKUP: 1500  1.500
+02:19:52 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:52 ars_accGps: Samples 96
+02:19:52 ars_accGps: Precal -160,-44,-988,1,0.29,162.33
+02:19:52 ars_accGps: Precal -160,-48,-996,1,0.29,162.33
+02:19:52 ars_accGps: Precal -164,-48,-996,1,0.29,162.33
+02:19:52 ars_accGps: Precal -152,-48,-1000,1,0.29,162.33
+02:19:52 ars_accGps: Precal -164,-44,-996,1,0.29,162.33
+02:19:52 ars_accGps: Precal -156,-48,-996,1,0.29,162.33
+02:19:52 ars_accGps: Precal -156,-48,-992,1,0.29,162.33
+02:19:52 ars_accGps: Precal -160,-48,-992,1,0.29,162.33
+02:19:52 ars_accGps: Precal -160,-48,-996,1,0.29,162.33
+02:19:52 ars_accGps: Precal -160,-48,-996,1,0.29,162.33
+02:19:52 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E63 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R63 UM0 ME0 KO0:R0)
+02:19:53 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:53 ars_accGps: Samples 96
+02:19:53 ars_accGps: Precal -152,-48,-996,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-48,-996,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-52,-992,1,0.38,162.33
+02:19:53 ars_accGps: Precal -156,-60,-976,1,0.38,162.33
+02:19:53 ars_accGps: Precal -164,-44,-988,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-48,-996,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-48,-996,1,0.38,162.33
+02:19:53 ars_accGps: Precal -156,-48,-992,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-48,-992,1,0.38,162.33
+02:19:53 ars_accGps: Precal -160,-48,-992,1,0.38,162.33
+02:19:53 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E62 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R62 UM0 ME0 KO0:R0)
+02:19:54 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:54 ars_accGps: Samples 96
+02:19:54 ars_accGps: Precal -160,-52,-988,1,0.46,162.33
+02:19:54 ars_accGps: Precal -160,-52,-996,1,0.46,162.33
+02:19:54 ars_accGps: Precal -152,-48,-992,1,0.46,162.33
+02:19:54 ars_accGps: Precal -164,-48,-1004,1,0.46,162.33
+02:19:54 ars_accGps: Precal -168,-52,-992,1,0.46,162.33
+02:19:54 ars_accGps: Precal -156,-52,-996,1,0.46,162.33
+02:19:54 ars_accGps: Precal -160,-52,-992,1,0.46,162.33
+02:19:54 ars_accGps: Precal -160,-52,-988,1,0.46,162.33
+02:19:54 ars_accGps: Precal -156,-48,-992,1,0.46,162.33
+02:19:54 ars_accGps: Precal -152,-52,-992,1,0.46,162.33
+02:19:54 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E61 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R61 UM0 ME0 KO0:R0)
+02:19:55 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:55 ars_accGps: Samples 96
+02:19:55 ars_accGps: Precal -156,-48,-992,1,0.21,162.33
+02:19:55 ars_accGps: Precal -156,-56,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -160,-44,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -160,-52,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -168,-52,-968,1,0.21,162.33
+02:19:55 ars_accGps: Precal -160,-48,-1008,1,0.21,162.33
+02:19:55 ars_accGps: Precal -152,-48,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -160,-48,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -156,-52,-996,1,0.21,162.33
+02:19:55 ars_accGps: Precal -156,-52,-992,1,0.21,162.33
+02:19:55 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E60 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R60 UM0 ME0 KO0:R0)
+02:19:55 mph_readAdc: 0
+02:19:55
+Seconds: 18124
+02:19:55   174: INT    GPS-FS                4 (0)
+02:19:55    26: PER    WD-PER                4 (0)
+02:19:55    58: PER    POLLER                4 (0)
+02:19:55   175: INT    CHK-NMEA             29 (0)
+02:19:55    19: INT    HB-NORM              59 (360)
+02:19:55    25: INT    NVM                 615 (0)
+02:19:55    34: INT    KA                  788 (0)
+02:19:55    18: INT    HB-MAINT          64499 (90000)
+02:19:55   142: INT    EXT-STOP1        489299 (0)
+02:19:55 mph_HandleCommand:  WD Left 896
+02:19:55 mph_HandleAdc(03): MAIN: 12048 12.048
+02:19:55 mph_HandleAdc(03): BKUP: 1505  1.505
+02:19:56 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:19:56 ars_accGps: Samples 128
+02:19:56 ars_accGps: Precal -160,-52,-992,1,0.067,162.33
+02:19:56 ars_accGps: Precal -164,-48,-992,1,0.067,162.33
+02:19:56 ars_accGps: Precal -156,-48,-992,1,0.067,162.33
+02:19:56 ars_accGps: Precal -156,-44,-992,1,0.067,162.33
+02:19:56 ars_accGps: Precal -144,-56,-980,1,0.067,162.33
+02:19:56 ars_accGps: Precal -156,-44,-980,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-52,-992,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-48,-1000,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-48,-988,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-52,-996,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-52,-996,1,0.067,162.33
+02:19:56 ars_accGps: Precal -156,-44,-1000,1,0.067,162.33
+02:19:56 ars_accGps: Precal -160,-44,-992,1,0.067,162.33

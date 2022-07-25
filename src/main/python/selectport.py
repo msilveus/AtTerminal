@@ -565,7 +565,10 @@ class SelectPort(QMainWindow):
         self.main_window.properties = self.properties
         self.main_window.set_night_mode(nightmode)
         self.close()
-        
+        if serial.serial.is_open:
+            self.main_window.actionUpload.setDisabled(False)
+            self.main_window.actionDownload.setDisabled(False)
+
         return properties_dict
 
     def show_config(self):

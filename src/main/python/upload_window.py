@@ -15,9 +15,9 @@ class Ui_uploadForm(object):
     def setupUi(self, uploadForm):
         uploadForm.setObjectName("uploadForm")
         uploadForm.setWindowModality(QtCore.Qt.NonModal)
-        uploadForm.resize(482, 367)
+        uploadForm.resize(482, 392)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/images/left.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/images/upload.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         uploadForm.setWindowIcon(icon)
         uploadForm.setStyleSheet("font: 12pt \"Cascadia Mono\";")
         self.gridLayout = QtWidgets.QGridLayout(uploadForm)
@@ -103,3 +103,4 @@ class Ui_uploadForm(object):
         self.btnBrowse.setText(_translate("uploadForm", "Browse"))
         self.btnUpload.setText(_translate("uploadForm", "Upload"))
         self.btnCancel.setText(_translate("uploadForm", "Cancel"))
+import images_rc

@@ -1,4 +1,5 @@
 #from serialoutline import QMainWindow, Ui_MainWindow
+import string
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QTimer
@@ -171,7 +172,8 @@ class SerialWindow(object):
             if self.serial_running and self.serial.in_waiting and self.serial.is_open:
                 line = self.serial.readline()
                 line = line.decode("ascii", "backslashreplace")
-                return line.rstrip()
+                filtered_string = ''.join(filter(lambda x: x in string.printable, line))
+                return filtered_string.rstrip()
             else:
                 return None
         except Exception as e:
@@ -293,7 +295,11 @@ class SerialWindow(object):
 
     def getc(self, size, timeout=1):
         if self.serial != None:
-            return self.serial.read(size)
+            data = self.serial.read(size)
+            if data == b'':
+                return None
+            else:
+                return data
 
     def putc(self, data, timeout=1):
         if self.serial != None:

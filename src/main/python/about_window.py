@@ -75,4 +75,3 @@ class Ui_aboutBox(object):
         self.lblAbout.setText(_translate("aboutBox", "At Terminal v1.0"))
         self.lblAuthor.setText(_translate("aboutBox", "Sam and I"))
         self.btnOK.setText(_translate("aboutBox", "OK"))
-import images_rc

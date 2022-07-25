@@ -15,7 +15,7 @@ class UploadForm(QWidget, Ui_uploadForm):
         self.setupUi(self)
 
         self.btnBrowse.clicked.connect(self.onBrowse)
-        self.btnCancel.clicked.connect(self.onCancel)
+        self.btnCancel.clicked.connect(self.close)
         self.btnUpload.clicked.connect(self.onUpload)
         self.btnUpload.setDisabled(True)
 
@@ -61,9 +61,6 @@ class UploadForm(QWidget, Ui_uploadForm):
             self.uploadDirectory = os.path.dirname(self.filename)
             self.properties.update({"uploaddirectory":self.uploadDirectory})
             config_utils.save_confg(self.properties)
-
-    def onCancel(self):
-        self.close()
 
     def onUpload(self):
         uploadcmd = None
@@ -145,7 +142,7 @@ class UploadForm(QWidget, Ui_uploadForm):
                     while response != "XMODEMR SUCCESS" and response != "XMODEMR OK" and response != "XMODEMR FAILED":
                         response = self.serialhandle.uart_rx()
 
-                    if response == 'XMODEMR SUCCESS':
+                    if response == 'XMODEMR SUCCESS' or response == 'XMODEMR OK':
                         return True
                     else:
                         return False

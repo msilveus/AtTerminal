@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>482</width>
-    <height>367</height>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../images/images.qrc">
-    <normaloff>:/images/left.png</normaloff>:/images/left.png</iconset>
+    <normaloff>:/images/upload.png</normaloff>:/images/upload.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">font: 12pt &quot;Cascadia Mono&quot;;</string>

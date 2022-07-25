@@ -7,6 +7,7 @@ from edithistory import EditHistory
 from main_window import Ui_MainWindow
 import config_utils
 from about import AboutBox
+from downloadform import DownloadForm
 from uploadform import UploadForm
 
 
@@ -21,6 +22,7 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.actionHistory.triggered.connect(self.onEditHistory)
         self.actionExit.triggered.connect(self.onActionExit)
         self.actionUpload.triggered.connect(self.onUpload)
+        self.actionDownload.triggered.connect(self.onDownload)
         self.sendEdit.returnPressed.connect(self.onSendData)
         self.btnSend.clicked.connect(self.onSendData)
         self.btnSendHistory.clicked.connect(self.onSendHistory)
@@ -30,6 +32,9 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.viewPort.verticalScrollBar().valueChanged.connect(self.onScrollEvent)
         self.actionSuspend_Comm_Port.triggered.connect(self.handle_disconnect_resume)
         self.actionAbout.triggered.connect(self.onShowAbout)
+
+        self.actionDownload.setDisabled(True)
+        self.actionUpload.setDisabled(True)
         
         self.stopsign = QtGui.QIcon()
         self.stopsign.addPixmap(QtGui.QPixmap("images/stop-sign.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -54,7 +59,7 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.port_settings = selectport.SelectPort(self)
         self.list_of_window.append(self.port_settings)
         self.port_settings.show()
-    
+
     def onActionExit(self):
         self.close()
     
@@ -158,6 +163,12 @@ class MainForm(QMainWindow, Ui_MainWindow):
         about = AboutBox()
         self.list_of_window.append(about)
         about.show()
+
+    def onDownload(self):
+        if self.serialClass != None:
+            self.downloadform = DownloadForm(self.serialClass, self)
+            self.downloadform.show()
+
 
 
 class App(object):

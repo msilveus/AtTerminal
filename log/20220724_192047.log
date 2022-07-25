@@ -1,0 +1,133 @@
+Serial port => COM7  | Log Name => C:\work\pythonProjects\AtTerminal\log\20220724_192047
+
+02:20:49 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E6 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R6 UM0 ME0 KO0:R0)
+02:20:50 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:50 ars_accGps: Samples 96
+02:20:50 ars_accGps: Precal -160,-48,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -156,-44,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -156,-44,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -156,-52,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -160,-48,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -160,-52,-996,1,0.42,162.33
+02:20:50 ars_accGps: Precal -164,-52,-1008,1,0.42,162.33
+02:20:50 ars_accGps: Precal -156,-52,-996,1,0.42,162.33
+02:20:50 ars_accGps: Precal -156,-48,-992,1,0.42,162.33
+02:20:50 ars_accGps: Precal -160,-56,-988,1,0.42,162.33
+02:20:50 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E5 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R5 UM0 ME0 KO0:R0)
+02:20:51 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:51 ars_accGps: Samples 128
+02:20:51 ars_accGps: Precal -156,-48,-996,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-52,-992,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-48,-992,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-44,-984,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-48,-992,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-52,-992,1,0.37,162.33
+02:20:51 ars_accGps: Precal -160,-48,-988,1,0.37,162.33
+02:20:51 ars_accGps: Precal -164,-48,-1000,1,0.37,162.33
+02:20:51 ars_accGps: Precal -160,-48,-996,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-52,-992,1,0.37,162.33
+02:20:51 ars_accGps: Precal -160,-52,-996,1,0.37,162.33
+02:20:51 ars_accGps: Precal -160,-48,-996,1,0.37,162.33
+02:20:51 ars_accGps: Precal -156,-52,-992,1,0.37,162.33
+02:20:51 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E4 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R4 UM0 ME0 KO0:R0)
+02:20:51 mph_readAdc: 0
+02:20:51 mph_HandleCommand:  WD Left 896
+02:20:51 mph_HandleAdc(03): MAIN: 12086 12.086
+02:20:51 mph_HandleAdc(03): BKUP: 1489  1.489
+02:20:52 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:52 ars_accGps: Samples 64
+02:20:52 ars_accGps: Precal -156,-48,-988,1,0.27,162.33
+02:20:52 ars_accGps: Precal -156,-48,-996,1,0.27,162.33
+02:20:52 ars_accGps: Precal -156,-52,-1000,1,0.27,162.33
+02:20:52 ars_accGps: Precal -160,-48,-988,1,0.27,162.33
+02:20:52 ars_accGps: Precal -168,-56,-1004,1,0.27,162.33
+02:20:52 ars_accGps: Precal -160,-48,-1004,1,0.27,162.33
+02:20:52 ars_accGps: Precal -160,-44,-992,1,0.27,162.33
+02:20:52 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E3 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R3 UM0 ME0 KO0:R0)
+02:20:53 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:53 ars_accGps: Samples 96
+02:20:53 ars_accGps: Precal -160,-52,-988,1,0.36,162.33
+02:20:53 ars_accGps: Precal -156,-52,-988,1,0.36,162.33
+02:20:53 ars_accGps: Precal -160,-48,-992,1,0.36,162.33
+02:20:53 ars_accGps: Precal -156,-48,-996,1,0.36,162.33
+02:20:53 ars_accGps: Precal -156,-48,-992,1,0.36,162.33
+02:20:53 ars_accGps: Precal -156,-48,-992,1,0.36,162.33
+02:20:53 ars_accGps: Precal -160,-48,-996,1,0.36,162.33
+02:20:53 ars_accGps: Precal -172,-44,-988,1,0.36,162.33
+02:20:53 ars_accGps: Precal -164,-48,-972,1,0.36,162.33
+02:20:53 ars_accGps: Precal -160,-48,-992,1,0.36,162.33
+02:20:53 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E2 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R2 UM0 ME0 KO0:R0)
+02:20:54 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:54 ars_accGps: Samples 96
+02:20:54 ars_accGps: Precal -160,-48,-988,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-44,-992,1,0.23,162.33
+02:20:54 ars_accGps: Precal -156,-52,-992,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-48,-996,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-48,-996,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-52,-988,1,0.23,162.33
+02:20:54 ars_accGps: Precal -156,-48,-988,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-48,-996,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-52,-992,1,0.23,162.33
+02:20:54 ars_accGps: Precal -160,-48,-992,1,0.23,162.33
+02:20:54 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R0 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA1:E1 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT0 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA1:R1 UM0 ME0 KO0:R0)
+02:20:54 mp_getRSSI - RSSI=18
+02:20:54 mp_MakeReport_tag_nidn: neighbors: 3
+02:20:54 mp_getRSSI - RSSI=18
+02:20:54 mp_getRSSI - RSSI=18
+02:20:54 mnt_QueuePendingReport: pending(1/16) ==> Ev: 02, Mask: 40000 (CellScan)
+02:20:54 mnt_CellScanStartWithTimeout: Cell Scan read timer 30 s
+02:20:54 mnt_atcmdrspSendCommandData: Adding '+QENG="servingcell"'
+02:20:54 mnt_atcmdrspSendNextRecordFromQueue: Sending 'AT+QENG="servingcell"'
+AT+QENG="servingcell"
+02:20:54 mnt_startHeartbeatTimer(1): HB: 360, R: 360, A: 360 secs
++QENG: "servingcell","NOCONN","eMTC","FDD",310,410,8880A0F,110,5110,12,3,3,870E,-100,-11,-75,12,29
+02:20:54 mnt_atcmdrspParseResponseLine(102): '<CR><LF>+QENG: "servingcell","NOCONN","eMTC","FDD",310,410,8880A0F,110,5110,12,3,3,870E,-100,-11,-75,12,29<CR><LF>'
+02:20:54 mnt_atcmdrspParseResponseLine: Response '+QENG'
+02:20:54 mnt_atcmdrspParseResponseLine: Handler '+QENG', 18 params
+02:20:54 mnt_atcmdrspSendCommandData: Adding '+QCELLSCAN=8,15'
+OK
+02:20:54 mnt_atcmdrspHandleResponseChar: Final response 'OK'
+02:20:54 mnt_atcmdrspSendNextRecordFromQueue: Sending 'AT+QCELLSCAN=8,15'
+AT+QCELLSCAN=8,15
+OK
+02:20:54 mnt_atcmdrspHandleResponseChar: Final response 'OK'
+02:20:55 mnt_TimerSetTimersAdjustmentTime: 0, 1
+02:20:55 ars_accGps: Samples 96
+02:20:55 ars_accGps: Precal -160,-52,-992,1,0.19,162.33
+02:20:55 ars_accGps: Precal -160,-52,-996,1,0.19,162.33
+02:20:55 ars_accGps: Precal -160,-44,-992,1,0.19,162.33
+02:20:55 ars_accGps: Precal -160,-48,-988,1,0.19,162.33
+02:20:55 ars_accGps: Precal -160,-48,-996,1,0.19,162.33
+02:20:55 ars_accGps: Precal -156,-48,-988,1,0.19,162.33
+02:20:55 ars_accGps: Precal -164,-48,-988,1,0.19,162.33
+02:20:55 ars_accGps: Precal -160,-48,-996,1,0.19,162.33
+02:20:55 ars_accGps: Precal -152,-48,-980,1,0.19,162.33
+02:20:55 ars_accGps: Precal -144,-44,-1004,1,0.19,162.33
+02:20:55 mnt_atcmdrspSendCommandData: Adding '+QCSQ'
+02:20:55 mnt_atcmdrspSendNextRecordFromQueue: Sending 'AT+QCSQ'
+AT+QCSQ
+02:20:55 mnt_powerShouldBeAwake(1): PWR1:TRACK I0:B1,T0,U0 G1 ACT(T0 O0 P0 C0 M0 F0 S0 A0) L0:T0 R1 P0:R0,A0,C1(1),P1,PT0,M0,CW:0 KA0:E360 Z0:T0,S0 VL0 RST(S0 D0) BUBX0 RLY0(R0:T0) IGN0:I0,T0 TI0:T0,I0 TEMP0 IO0 SA0 AT1 PR0 J0 CM:0 BLE0 (L0:T0 A1 T0:D0,R1 W0:P1,T0 PU0:T0 KA0:R360 UM0 ME0 KO0:R0)
+02:20:55 mph_readAdc: 0
+02:20:55
+Seconds: 18184
+02:20:55   174: INT    GPS-FS                4 (0)
+02:20:55    26: PER    WD-PER                4 (0)
+02:20:55    58: PER    POLLER                4 (0)
+02:20:55    70: INT    CELL-SCAN            29 (0)
+02:20:55   175: INT    CHK-NMEA             29 (0)
+02:20:55   148: INT    AT_CMDRSP_TM         29 (0)
+02:20:55    19: INT    HB-NORM             359 (360)
+02:20:55    25: INT    NVM                 555 (0)
+02:20:55    34: INT    KA                  728 (0)
+02:20:55    18: INT    HB-MAINT          64439 (90000)
+02:20:55   142: INT    EXT-STOP1        489239 (0)
++QCSQ: "eMTC",-78,-101,127,-10
+02:20:55 mnt_atcmdrspParseResponseLine(32): '+QCSQ: "eMTC",-78,-101,127,-10<CR><LF>'
+02:20:55 mnt_atcmdrspParseResponseLine: Response '+QCSQ'
+02:20:55 mnt_atcmdrspParseResponseLine: Handler '+QCSQ', 5 params
+02:20:55 atRspQcsqHandler: rssi: 18, lte_rssi: -78, lte_rsrq -10, lte_rsrp -101
+OK
+02:20:55 mnt_atcmdrspHandleResponseChar: Final response 'OK'
+02:20:55 mph_HandleCommand:  WD Left 896
+02:20:55 mph_HandleAdc(03): MAIN: 12048 12.048
+02:20:55 mph_HandleAdc(03): BKUP: 1493  1.493

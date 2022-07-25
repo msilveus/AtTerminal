@@ -123,6 +123,7 @@
      <string>Transfer</string>
     </property>
     <addaction name="actionUpload"/>
+    <addaction name="actionDownload"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -157,6 +158,7 @@
    <addaction name="actionConfiguration"/>
    <addaction name="actionAutoScroll"/>
    <addaction name="actionUpload"/>
+   <addaction name="actionDownload"/>
    <addaction name="actionSuspend_Comm_Port"/>
   </widget>
   <action name="actionExit">
@@ -177,7 +179,7 @@
   <action name="actionUpload">
    <property name="icon">
     <iconset resource="../images/images.qrc">
-     <normaloff>:/images/left.png</normaloff>:/images/left.png</iconset>
+     <normaloff>:/images/upload.png</normaloff>:/images/upload.png</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -242,6 +244,15 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionDownload">
+   <property name="icon">
+    <iconset resource="../images/images.qrc">
+     <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
+   </property>
+   <property name="text">
+    <string>Download</string>
    </property>
   </action>
  </widget>

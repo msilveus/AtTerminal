@@ -9,8 +9,9 @@ class AboutBox(QWidget, Ui_aboutBox):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.version = "2.0"
+        self.version = "2.0.1"
 
         self.btnOK.clicked.connect(self.close)
         self.lblAbout.setText("AtTerminal v{}".format(self.version))
         self.lblAuthor.setText("Authors:\nSam Ahrar & Michael Silveus")
+

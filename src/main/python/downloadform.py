@@ -1,25 +1,48 @@
 import os
 import logging
+import threading
 
-from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox, QApplication
 from xmodem import XMODEM1k
 
 from download_window import Ui_DownloadDialog
 import config_utils
+
+class DownloadClient(threading.Thread):
+    def __init__(self, serialhandler=None, filename=None, callback=None):
+        threading.Thread.__init__(self)
+        self.serialhandle = serialhandler
+        self.filename = filename
+        self.callback = callback
+        self.stream = open(filename, 'wb')
+
+    def getc(self, data, timeout=0):
+        return self.serialhandle.getc(data, 0)
+
+    def putc(self, data, timeout=0):
+        return self.serialhandle.putc(data, 0)
+
+    def run(self):
+        try:
+            self.xmodem = XMODEM1k(self.getc, self.putc)
+            self.xmodem.recv(self.stream, 1, 16, 60, 1, 0, self.callback)
+        finally:
+            self.stream.close()
 
 
 class DownloadForm(QWidget, Ui_DownloadDialog):
     def __init__(self, serialhandler=None, mainwindow=None):
         super().__init__()
         self.setupUi(self)
-#        logging.basicConfig(level=logging.DEBUG)
-
+        logging.basicConfig(level=logging.DEBUG)
+        self.mainwindow = mainwindow
         self.serialhandle = serialhandler
         self.downloaddirectory = ""
         self.properties = dict()
         self.filename = None
         self.filesize = None
         self.xmodem = None
+        self.log = logging.getLogger('DownloadForm')
 
         self.btnBrowse.clicked.connect(self.onBrowse)
         self.btnDownload.clicked.connect(self.onDownload)
@@ -100,7 +123,10 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
             msg.exec()
 
     def updateProgress(self, total_packets, success_count, error_count):
-        self.lblProgress.setText("Blk: {}".format(success_count))
+        message = "Blk: {}".format(success_count)
+        self.lblProgress.setText(message)
+        QApplication.processEvents()
+        self.log.debug(message)
 
     def doXmodem(self, command):
         """
@@ -115,24 +141,27 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
             
                 if response == 'OK':
                     try:
-                        stream = open(self.filename, 'wb')
-                        self.filesize = self.xmodem.recv(stream, 1, 16, 60, 1, 0, self.updateProgress)
-                    finally:
-                        stream.close()
+                        dlThread = DownloadClient(self.serialhandle, self.filename, self.updateProgress)
+                        dlThread.start()
+                        dlThread.join()
+#                        stream = open(self.filename, 'wb')
+#                        self.filesize = self.xmodem.recv(stream, 1, 16, 60, 1, 0, self.updateProgress)
+                    except Exception as e:
+                        self.lblStatus.setText(str(e))
                         
                     while response != "XMODEMS SUCCESS" and response != "XMODEMS OK" and response != "XMODEMS FAILED":
                         response = self.serialhandle.uart_rx()
                         if response is not None:
-                            if response.endswith('XMODEMS SUCCESS'):
+                            if response.find('XMODEMS SUCCESS') != -1:
                                 response = 'XMODEMS SUCCESS'
                                 break
-                            if response.endswith('XMODEMS OK'):
+                            if response.find('XMODEMS OK') != -1:
                                 response = 'XMODEMS OK'
                                 break
-                            if response.endswith('XMODEMS FAILED'):
+                            if response.find('XMODEMS FAILED') != -1:
                                 response = 'XMODEMS FAILED'
                                 break
-                
+                    
                     if response == 'XMODEMS SUCCESS' or response == 'XMODEMS OK':
                         return True
                     else:
@@ -144,4 +173,10 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
         else:
             return None
 
+    def xmodemThread(self):
+        try:
+            stream = open(self.filename, 'wb')
+            self.filesize = self.xmodem.recv(stream, 1, 16, 60, 1, 0, self.updateProgress)
+        finally:
+            stream.close()
 

@@ -2,7 +2,7 @@
     "app_name": "AtTerminal",
     "author": "Sam.Ahrar & Michael.Silveus",
     "main_module": "src/main/python/main.py",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "gpg_key": "2C50251CCCABD5C57B07CA9747C91B743F499D03",
     "gpg_name": "Michael Silveus"
 }

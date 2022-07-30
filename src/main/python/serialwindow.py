@@ -6,6 +6,7 @@ from PyQt5.QtCore import QTimer
 import serial
 import sys, os
 
+from PyQt5.QtWidgets import QApplication
 from atelfrpparser import frp
 
 from log_utils import log_files, log_line, formatFRPreport
@@ -142,6 +143,7 @@ class SerialWindow(object):
         if line:
             self.print_to_box(line, None, None)
             self.line_handler(line)
+            QApplication.processEvents()
 
             return line
         else:

@@ -1,12 +1,34 @@
 import os
+import threading
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QApplication
 from xmodem import XMODEM1k
 
 import config_utils
 from upload_window import Ui_uploadForm
+
+class UploadClient(threading.Thread):
+    def __init__(self, serialhandler=None, filename=None, callback=None):
+        threading.Thread.__init__(self)
+        self.serialhandle = serialhandler
+        self.filename = filename
+        self.callback = callback
+        self.stream = open(filename, 'rb')
+
+    def getc(self, data, timeout=0):
+        return self.serialhandle.getc(data, 0)
+
+    def putc(self, data, timeout=0):
+        return self.serialhandle.putc(data, 0)
+
+    def run(self):
+        try:
+            self.xmodem = XMODEM1k(self.getc, self.putc)
+            self.xmodem.send(self.stream, 128, 60, False, self.callback)
+        finally:
+            self.stream.close()
 
 
 class UploadForm(QWidget, Ui_uploadForm):
@@ -133,12 +155,15 @@ class UploadForm(QWidget, Ui_uploadForm):
 
                 if response == 'OK':
                     try:
-                        stream = open(self.filename, 'rb')
                         self.filesize = os.stat(self.filename).st_size
-                        self.xmodem.send(stream, 128, 60, False, self.updateProgressBar)
-                        
-                    finally:
-                        stream.close()
+                        ulThread = UploadClient(self.serialhandle, self.filename, self.updateProgressBar)
+                        ulThread.start()
+                        ulThread.join()
+#                        stream = open(self.filename, 'rb')
+#                        self.xmodem.send(stream, 128, 60, False, self.updateProgressBar)
+                    except Exception as e:
+                        self.lblStatus.setText(str(e))
+
                     while response != "XMODEMR SUCCESS" and response != "XMODEMR OK" and response != "XMODEMR FAILED":
                         response = self.serialhandle.uart_rx()
 
@@ -165,6 +190,7 @@ class UploadForm(QWidget, Ui_uploadForm):
             fupdatecmd = "AT+XFUPDATE=\"{}\",{}".format(str(fileid), str(type))
 
             self.lblStatus.setText("Sending {}".format(fupdatecmd))
+            QApplication.processEvents()
             response = ""
             self.serialhandle.putc(str.encode(fupdatecmd + "\r\n"))
     

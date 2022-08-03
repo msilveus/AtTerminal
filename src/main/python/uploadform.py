@@ -1,4 +1,5 @@
 import os
+import re
 import threading
 
 from PyQt5 import QtWidgets
@@ -7,28 +8,8 @@ from PyQt5.QtWidgets import QWidget, QFileDialog, QApplication
 from xmodem import XMODEM1k
 
 import config_utils
+from xmodemclient import XmodemClient
 from upload_window import Ui_uploadForm
-
-class UploadClient(threading.Thread):
-    def __init__(self, serialhandler=None, filename=None, callback=None):
-        threading.Thread.__init__(self)
-        self.serialhandle = serialhandler
-        self.filename = filename
-        self.callback = callback
-        self.stream = open(filename, 'rb')
-
-    def getc(self, data, timeout=0):
-        return self.serialhandle.getc(data, 0)
-
-    def putc(self, data, timeout=0):
-        return self.serialhandle.putc(data, 0)
-
-    def run(self):
-        try:
-            self.xmodem = XMODEM1k(self.getc, self.putc)
-            self.xmodem.send(self.stream, 128, 60, False, self.callback)
-        finally:
-            self.stream.close()
 
 
 class UploadForm(QWidget, Ui_uploadForm):
@@ -40,6 +21,16 @@ class UploadForm(QWidget, Ui_uploadForm):
         self.btnCancel.clicked.connect(self.close)
         self.btnUpload.clicked.connect(self.onUpload)
         self.btnUpload.setDisabled(True)
+        self.optionsBox.hide()
+        self.rbtnFactory.hide()
+        self.rbtnReset.hide()
+        self.rbtnApplication.clicked.connect(self.onRadioButton)
+        self.rbtnMCU.clicked.connect(self.onRadioButton)
+        self.rbtnDefaultCfg.clicked.connect(self.onRadioButton)
+        self.rbtnUserCfg.clicked.connect(self.onRadioButton)
+        self.rbtnCS.clicked.connect(self.onRadioButton)
+        self.rbtnCPFW.clicked.connect(self.onRadioButton)
+        self.rbtnNalaMux.clicked.connect(self.onRadioButton)
 
         self.serialhandle = serialhandler
         self.mainwindow = mainwindow
@@ -65,6 +56,21 @@ class UploadForm(QWidget, Ui_uploadForm):
             self.properties = config_file
             if 'uploaddirectory' in self.properties and self.properties['uploaddirectory']:
                 self.uploadDirectory = self.properties['uploaddirectory']
+
+    def onRadioButton(self):
+        boxElements = self.uploadMode.children()
+    
+        radioButtons = [elem for elem in boxElements if isinstance(elem, QtWidgets.QRadioButton)]
+        for rb in radioButtons:
+            if rb.isChecked():
+                if rb == self.rbtnDefaultCfg:
+                    self.optionsBox.show()
+                    self.rbtnFactory.show()
+                    self.rbtnReset.show()
+                else:
+                    self.optionsBox.hide()
+                    self.rbtnFactory.hide()
+                    self.rbtnReset.hide()
 
     def onBrowse(self):
         title = str("Select a file to upload")
@@ -137,7 +143,7 @@ class UploadForm(QWidget, Ui_uploadForm):
             if self.doXmodem(uploadcmd):
                 self.fupdate(filetype, fileid)
                 if shouldreset:
-                    self.doReset(2) # soft reset
+                    self.doReset(2) # soft reset or XFDR
             self.serialhandle.setUploadMode(False) # re-enable normal processing
             self.close()
 
@@ -152,20 +158,30 @@ class UploadForm(QWidget, Ui_uploadForm):
                 self.serialhandle.putc(str.encode(command + "\r\n"))
                 while response != "OK" and response != "ERROR":
                     response = self.serialhandle.uart_rx()
+                    if response is not None:
+                        if "OK" in response:
+                            response = "OK"
+                        if "ERROR" in response:
+                            response = "ERROR"
 
                 if response == 'OK':
                     try:
                         self.filesize = os.stat(self.filename).st_size
-                        ulThread = UploadClient(self.serialhandle, self.filename, self.updateProgressBar)
+                        ulThread = XmodemClient(self.serialhandle, self.filename, self.updateXmodemProgress, XmodemClient.UPLOAD)
                         ulThread.start()
                         ulThread.join()
-#                        stream = open(self.filename, 'rb')
-#                        self.xmodem.send(stream, 128, 60, False, self.updateProgressBar)
                     except Exception as e:
                         self.lblStatus.setText(str(e))
 
                     while response != "XMODEMR SUCCESS" and response != "XMODEMR OK" and response != "XMODEMR FAILED":
                         response = self.serialhandle.uart_rx()
+                        if response is not None:
+                            if "XMODEMR SUCCESS" in response:
+                                response = "XMODEMR SUCCESS"
+                            if "XMODEMR OK" in response:
+                                response = "XMODEMR OK"
+                            if "XMODEMR FAILED" in response:
+                                response = "XMODEMR FAILED"
 
                     if response == 'XMODEMR SUCCESS' or response == 'XMODEMR OK':
                         return True
@@ -178,11 +194,14 @@ class UploadForm(QWidget, Ui_uploadForm):
         else:
             return None
 
-    def updateProgressBar(self, total_packets, success_count, error_count):
+    def updateXmodemProgress(self, total_packets, success_count, error_count):
         total_blks = self.filesize / 1024
         if self.filesize % 1024:
             total_blks = total_blks + 1
         percent = (success_count / int(total_blks)) * 100
+        self.progressBar.setValue(int(percent))
+
+    def updateExtracted(self, percent):
         self.progressBar.setValue(int(percent))
 
     def fupdate(self, type=None, fileid=None):
@@ -196,9 +215,26 @@ class UploadForm(QWidget, Ui_uploadForm):
     
             while response != "OK" and response != "ERROR":
                 response = self.serialhandle.uart_rx()
+                if response is not None:
+                    if "Extracted" in response:
+                        temp = re.findall(r'\d+', response)
+                        result = list(map(int, temp))
+                        percent = result[len(result)-1]
+                        self.updateExtracted(percent)
+                    if "OK" in response:
+                        response = "OK"
+                    if "ERROR" in response:
+                        response = "ERROR"
+
 
     def doReset(self, type=None):
-        resetcmd = "AT+XRST={}".format(type)
+        if self.rbtnDefaultCfg.isChecked():
+            if self.rbtnFactory.isChecked():
+                resetcmd = "AT+XFDR"
+            else:
+                resetcmd = "AT+XRST={}".format(type)
+        else:
+            resetcmd = "AT+XRST={}".format(type)
 
         self.lblStatus.setText("Sending {}".format(resetcmd))
         response = ""
@@ -206,6 +242,11 @@ class UploadForm(QWidget, Ui_uploadForm):
 
         while response != "OK" and response != "ERROR":
             response = self.serialhandle.uart_rx()
+            if response is not None:
+                if "OK" in response:
+                    response = "OK"
+                if "ERROR" in response:
+                    response = "ERROR"
 
     def one_sec_handler(self):
         pass

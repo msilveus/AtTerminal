@@ -7,10 +7,12 @@ import serial
 import sys, os
 
 from PyQt5.QtWidgets import QApplication
+import atelfrpparser
 from atelfrpparser import frp
+from atelfrpparser.frpprint import print_frp_dic
 
-from log_utils import log_files, log_line, formatFRPreport
 from commandhistory import CommandHistory
+from log_utils import log_files, log_line
 
 
 class SerialWindow(object):
@@ -108,7 +110,10 @@ class SerialWindow(object):
         Call when stopping serial
         """
         self.serial_running = False
-    
+
+    def formatFRPreport(self, frp:dict, printobj: object=print, newline=""):
+        print_frp_dic(frp, printobj, newline)
+
     def print_to_box(self, line, bg_color=None, txt_color=None):
         """
         Any time printing to SerialOutput box
@@ -143,6 +148,10 @@ class SerialWindow(object):
         if line:
             self.print_to_box(line, None, None)
             self.line_handler(line)
+            if line.startswith("7D"):
+                frpreport = frp.frpreport(line).get_decoded_dictonary()
+                self.formatFRPreport(frpreport, self.viewPort.append)                   # send to display
+                self.formatFRPreport(frpreport, self.log.serial_info_file.write, '\n')  # send to info log
             QApplication.processEvents()
 
             return line

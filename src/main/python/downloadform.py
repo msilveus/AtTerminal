@@ -7,27 +7,7 @@ from xmodem import XMODEM1k
 
 from download_window import Ui_DownloadDialog
 import config_utils
-
-class DownloadClient(threading.Thread):
-    def __init__(self, serialhandler=None, filename=None, callback=None):
-        threading.Thread.__init__(self)
-        self.serialhandle = serialhandler
-        self.filename = filename
-        self.callback = callback
-        self.stream = open(filename, 'wb')
-
-    def getc(self, data, timeout=0):
-        return self.serialhandle.getc(data, 0)
-
-    def putc(self, data, timeout=0):
-        return self.serialhandle.putc(data, 0)
-
-    def run(self):
-        try:
-            self.xmodem = XMODEM1k(self.getc, self.putc)
-            self.xmodem.recv(self.stream, 1, 16, 60, 1, 0, self.callback)
-        finally:
-            self.stream.close()
+from xmodemclient import XmodemClient
 
 
 class DownloadForm(QWidget, Ui_DownloadDialog):
@@ -141,7 +121,7 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
             
                 if response == 'OK':
                     try:
-                        dlThread = DownloadClient(self.serialhandle, self.filename, self.updateProgress)
+                        dlThread = XmodemClient(self.serialhandle, self.filename, self.updateProgress, XmodemClient.DOWNLOAD)
                         dlThread.start()
                         dlThread.join()
 #                        stream = open(self.filename, 'wb')

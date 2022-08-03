@@ -118,7 +118,12 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
                 self.serialhandle.putc(str.encode(command + "\r\n"))
                 while response != "OK" and response != "ERROR":
                     response = self.serialhandle.uart_rx()
-            
+                    if response is not None:
+                        if "OK" in response:
+                            response = "OK"
+                        if "ERROR" in response:
+                            response = "ERROR"
+
                 if response == 'OK':
                     try:
                         dlThread = XmodemClient(self.serialhandle, self.filename, self.updateProgress, XmodemClient.DOWNLOAD)

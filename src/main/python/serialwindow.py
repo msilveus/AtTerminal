@@ -218,7 +218,7 @@ class SerialWindow(object):
     def isReady(self):
         return self.serial_running and self.serial.is_open
     
-    def setUploadMode(self, mode=False):
+    def setXmodemMode(self, mode=False):
         if mode:
             self.uart_timer.stop()
         else:

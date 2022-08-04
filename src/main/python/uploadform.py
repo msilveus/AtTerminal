@@ -139,12 +139,12 @@ class UploadForm(QWidget, Ui_uploadForm):
                     shouldreset = False
 
         if uploadcmd is not None:
-            self.serialhandle.setUploadMode(True)  # disable normal processing
+            self.serialhandle.setXmodemMode(True)  # disable normal processing
             if self.doXmodem(uploadcmd):
                 self.fupdate(filetype, fileid)
                 if shouldreset:
                     self.doReset(2) # soft reset or XFDR
-            self.serialhandle.setUploadMode(False) # re-enable normal processing
+            self.serialhandle.setXmodemMode(False) # re-enable normal processing
             self.close()
 
     def doXmodem(self, command):

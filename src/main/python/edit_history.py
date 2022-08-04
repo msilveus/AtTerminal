@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_EditHistory(object):
     def setupUi(self, EditHistory):
         EditHistory.setObjectName("EditHistory")
-        EditHistory.resize(400, 192)
+        EditHistory.resize(400, 200)
         self.gridLayout = QtWidgets.QGridLayout(EditHistory)
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
@@ -37,6 +37,9 @@ class Ui_EditHistory(object):
         self.btnDelete = QtWidgets.QPushButton(EditHistory)
         self.btnDelete.setObjectName("btnDelete")
         self.verticalLayout.addWidget(self.btnDelete)
+        self.btnSort = QtWidgets.QPushButton(EditHistory)
+        self.btnSort.setObjectName("btnSort")
+        self.verticalLayout.addWidget(self.btnSort)
         self.btnSave = QtWidgets.QPushButton(EditHistory)
         self.btnSave.setObjectName("btnSave")
         self.verticalLayout.addWidget(self.btnSave)
@@ -56,5 +59,6 @@ class Ui_EditHistory(object):
         self.btnAdd.setText(_translate("EditHistory", "Add"))
         self.bntUpdate.setText(_translate("EditHistory", "Update"))
         self.btnDelete.setText(_translate("EditHistory", "Delete"))
+        self.btnSort.setText(_translate("EditHistory", "Sort"))
         self.btnSave.setText(_translate("EditHistory", "Save and Exit"))
         self.btnExit.setText(_translate("EditHistory", "Exit"))

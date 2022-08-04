@@ -1,4 +1,4 @@
-from PyQt5 import QtCore
+from PyQt5 import QtCore, Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget
 
@@ -15,6 +15,7 @@ class EditHistory(QWidget, Ui_EditHistory):
         self.btnAdd.clicked.connect(self.onAddHistory)
         self.bntUpdate.clicked.connect(self.onUpdateHistory)
         self.btnDelete.clicked.connect(self.onDeleteHistory)
+        self.btnSort.clicked.connect(self.onSort)
         self.btnSave.clicked.connect(self.onSaveHistory)
         self.btnExit.clicked.connect(self.onExit)
         self.listView.clicked.connect(self.onItemSelected)
@@ -112,4 +113,7 @@ class EditHistory(QWidget, Ui_EditHistory):
     
         if save:
             config_utils.save_history(cmdlist)
+
+    def onSort(self):
+        self.listView.model().sort(0)
 

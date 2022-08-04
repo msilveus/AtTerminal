@@ -54,8 +54,8 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
             self.editSaveFolder.setText(self.downloaddirectory)
             self.btnDownload.setDisabled(False)           # enable button
             try:
-                if self.properties.update({"downloaddirectory":self.downloaddirectory}):
-                    config_utils.save_confg(self.properties)
+                self.properties.update({"downloaddirectory":self.downloaddirectory})
+                config_utils.save_confg(self.properties)
             except Exception as e:
                 pass
 
@@ -80,7 +80,9 @@ class DownloadForm(QWidget, Ui_DownloadDialog):
 
             if self.ready:
                 msg.setStandardButtons(QMessageBox.Ok)
+                self.serialhandle.setXmodemMode(True)  # disable normal processing
                 success = self.doXmodem(downloadcmd)
+                self.serialhandle.setXmodemMode(False)  # enable normal processing
                 if success is not None:
                     if success:
                         string_to_show = "Received {} bytes\nFile {} saved as\n{}".format(self.filesize, self.editFilename.text(), self.filename)

@@ -143,7 +143,7 @@ class UploadForm(QWidget, Ui_uploadForm):
             if self.doXmodem(uploadcmd):
                 self.fupdate(filetype, fileid)
                 if shouldreset:
-                    self.doReset(2) # soft reset or XFDR
+                    self.doReset(5) # programmer reset or XFDR
             self.serialhandle.setXmodemMode(False) # re-enable normal processing
             self.close()
 

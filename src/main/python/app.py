@@ -1,4 +1,5 @@
 from PyQt5 import QtGui, QtCore
+from PyQt5.QtGui import QStandardItem
 
 import selectport
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
@@ -67,13 +68,22 @@ class MainForm(QMainWindow, Ui_MainWindow):
         self.onActionExit()
     
     def onSendData(self):
+        additem = True
         cmd = self.sendEdit.text()
         self.sendEdit.clear()
-        self.historyBox.addItem(cmd)
+
         if (self.serialClass != None):
             nbytes = self.serialClass.send_to_uart(cmd + "\r\n")
         else:
             self.viewPort.append("Comm port not setup")
+
+        numOfitems = self.historyBox.count()
+        for index in range(numOfitems):
+            historycmd = self.historyBox.itemText(index)
+            if historycmd.lower() == cmd.lower():
+                additem = False
+        if additem:
+            self.historyBox.addItem(cmd)
     
     def onSendHistory(self):
         cmd = self.historyBox.currentText()

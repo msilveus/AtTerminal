@@ -107,7 +107,7 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QRadioButton" name="rbtnFactory">
+           <widget class="QRadioButton" name="rbtnFactoryReset">
             <property name="text">
              <string>Factory</string>
             </property>
@@ -117,9 +117,16 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="rbtnReset">
+           <widget class="QRadioButton" name="rbtnSoftReset">
             <property name="text">
              <string>Soft Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="rbtnProgReset">
+            <property name="text">
+             <string>Prog Reset</string>
             </property>
            </widget>
           </item>

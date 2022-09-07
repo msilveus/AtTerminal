@@ -21,9 +21,6 @@ class UploadForm(QWidget, Ui_uploadForm):
         self.btnCancel.clicked.connect(self.close)
         self.btnUpload.clicked.connect(self.onUpload)
         self.btnUpload.setDisabled(True)
-        self.optionsBox.hide()
-        self.rbtnFactory.hide()
-        self.rbtnReset.hide()
         self.rbtnApplication.clicked.connect(self.onRadioButton)
         self.rbtnMCU.clicked.connect(self.onRadioButton)
         self.rbtnDefaultCfg.clicked.connect(self.onRadioButton)
@@ -31,6 +28,7 @@ class UploadForm(QWidget, Ui_uploadForm):
         self.rbtnCS.clicked.connect(self.onRadioButton)
         self.rbtnCPFW.clicked.connect(self.onRadioButton)
         self.rbtnNalaMux.clicked.connect(self.onRadioButton)
+        self.rbtnSoftReset.setChecked(True)
 
         self.serialhandle = serialhandler
         self.mainwindow = mainwindow
@@ -64,13 +62,9 @@ class UploadForm(QWidget, Ui_uploadForm):
         for rb in radioButtons:
             if rb.isChecked():
                 if rb == self.rbtnDefaultCfg:
-                    self.optionsBox.show()
-                    self.rbtnFactory.show()
-                    self.rbtnReset.show()
+                    self.rbtnFactoryReset.setChecked(True)
                 else:
-                    self.optionsBox.hide()
-                    self.rbtnFactory.hide()
-                    self.rbtnReset.hide()
+                    self.rbtnSoftReset.setChecked(True)
 
     def onBrowse(self):
         title = str("Select a file to upload")
@@ -129,8 +123,8 @@ class UploadForm(QWidget, Ui_uploadForm):
                     shouldreset = False
                 elif rb == self.rbtnCPFW:
                     fileid = "CPupdate.bin"
-                    uploadcmd = "At+XFXMODEMR=\"{}\",{}".format(fileid, filesize)
                     filetype = 6
+                    uploadcmd = "At+XFXMODEMR=\"{}\",{},{}".format(fileid, filesize, filetype)
                     shouldreset = False
                 elif rb == self.rbtnCPFW:
                     fileid = "nalamux.bin"
@@ -143,7 +137,7 @@ class UploadForm(QWidget, Ui_uploadForm):
             if self.doXmodem(uploadcmd):
                 self.fupdate(filetype, fileid)
                 if shouldreset:
-                    self.doReset(5) # programmer reset or XFDR
+                    self.doReset(self.getResetType()) # programmer reset or XFDR
             self.serialhandle.setXmodemMode(False) # re-enable normal processing
             self.close()
 
@@ -228,11 +222,8 @@ class UploadForm(QWidget, Ui_uploadForm):
 
 
     def doReset(self, type=None):
-        if self.rbtnDefaultCfg.isChecked():
-            if self.rbtnFactory.isChecked():
-                resetcmd = "AT+XFDR"
-            else:
-                resetcmd = "AT+XRST={}".format(type)
+        if self.rbtnFactoryReset.isChecked():
+            resetcmd = "AT+XFDR"
         else:
             resetcmd = "AT+XRST={}".format(type)
 
@@ -250,4 +241,10 @@ class UploadForm(QWidget, Ui_uploadForm):
 
     def one_sec_handler(self):
         pass
+
+    def getResetType(self):
+        if self.rbtnSoftReset.isChecked():
+            return 2
+        if self.rbtnProgReset.isChecked():
+            return 5
 
